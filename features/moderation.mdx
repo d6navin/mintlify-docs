@@ -15,7 +15,7 @@ All actions are logged and support [duration syntax](#duration-syntax) where app
 | `,ban <user> [reason]` | Permanently ban a member from the server. |
 | `,unban <user>` | Revoke an existing ban. |
 | `,softban <user> [reason]` | Ban then immediately unban, deleting recent messages without keeping the ban. |
-| `,hardban <user> [reason]` | Permanently ban a user and automatically re-ban them if anyone unban them. |
+| `,hardban <user> [reason]` | Permanently ban a user and automatically re-ban them if anyone unbans them. |
 | `,tempban <user> <duration> [reason]` | Ban a member for a set duration, then automatically unban them. |
 | `,kick <user> [reason]` | Remove a member from the server (they can rejoin). |
 | `,mute <user> [duration] [reason]` | Mute a member, preventing them from sending messages. |
@@ -93,7 +93,7 @@ Isolates a member with a restricted role \+ dedicated channel. Re-applies on rej
 
 | Command | Description |
 | --- | --- |
-| `,role edit color <@role> <hex>` | Change a role's colour using a hex code (e.g. `#ff5733`). |
+| `,role edit color <@role> <hex>` | Change a role's color using a hex code (e.g. `#ff5733`). |
 | `,role edit name <@role> <name>` | Rename a role. |
 | `,role edit hoist <@role> <true/false>` | Toggle whether the role is displayed separately in the member list. |
 | `,role edit mentionable <@role> <true/false>` | Toggle whether the role can be @mentioned by everyone. |
@@ -159,7 +159,7 @@ Override the public server message and DM sent to punished users via embed synta
 
 </CodeGroup>
 
-Replace `pban` with any prefix above to customise other punishment types.
+Replace `pban` with any prefix above to customize other punishment types.
 
 ---
 

@@ -4,145 +4,58 @@ sidebarTitle: "Common Questions"
 description: "Answers to the most common questions about Wraith Bot, covering the default prefix, personal prefixes, Last.fm setup, levels, and free features."
 ---
 
-Wraith is a free, all-in-one Discord bot built to handle everything from moderation to music in a single package. If something isn't working the way you expect, or you're just getting started, the answers below cover the questions that come up most often. If you don't find what you need here, jump into the support server — the link is at the bottom of this page.
-
 ## General
 
-<Accordion title="Is Wraith free to use?">
-  Yes — Wraith is completely free. There are no premium tiers, paywalled commands, or subscription plans. Every feature is available to every server that invites the bot.
+<Accordion title="Is Wraith free?">
+  Yes. No premium tiers.
 </Accordion>
 
-<Accordion title="Does Wraith support slash commands?">
-  Yes. Most features work with both the traditional prefix style (e.g. `,help`) and Discord's built-in slash commands (e.g. `/help`). Use whichever you prefer — both are fully supported.
+<Accordion title="Slash commands?">
+  Yes — most commands support both `,help` and `/help`.
 </Accordion>
 
 ## Prefixes
 
-<Accordion title="What is the default prefix, and how do I change it?">
-  The default prefix is `,`. To change it for your server, run:
-
-  ```
-  ,prefix set <prefix>
-  ```
-
-  To go back to the default, run:
-
-  ```
-  ,prefix reset
-  ```
-
-  Only members with the appropriate server permissions can change the server prefix.
+<Accordion title="Default prefix / change it">
+  Default is `,`. Change: `,prefix set <prefix>` · Reset: `,prefix reset`
 </Accordion>
 
-<Accordion title="Can I set a personal prefix that works across every server?">
-  Yes. Your personal prefix follows you to every server Wraith is in. Set it with:
-
-  ```
-  ,selfprefix <prefix>
-  ```
-
-  Your personal prefix takes priority over the server prefix for your own commands.
+<Accordion title="Personal prefix across servers">
+  `,selfprefix <prefix>` — overrides server prefix for you.
 </Accordion>
 
-<Accordion title="I forgot the server prefix. How do I find it?">
-  Mention Wraith directly — `@Wraith prefix` — and it will tell you the current server prefix. You can also always use `@Wraith help` regardless of whatever prefix is set.
+<Accordion title="Forgot the prefix">
+  `@Wraith prefix` or `@Wraith help` always work.
 </Accordion>
 
 ## Last.fm
 
-<Accordion title="How do I link my Last.fm account?">
-  Run the following command, replacing `<username>` with your Last.fm username:
-
-  ```
-  ,lastfm set <username>
-  ```
-
-  Once linked, Wraith can display your now-playing track and scrobble history with Last.fm commands.
-</Accordion>
-
-<Accordion title="How do I unlink my Last.fm account?">
-  Run:
-
-  ```
-  ,lastfm unset
-  ```
-
-  This removes the connection between your Discord account and Last.fm.
+<Accordion title="Link / unlink">
+  Link: `,lastfm set <username>` · Unlink: `,lastfm unset`
 </Accordion>
 
 ## Jail
 
-<Accordion title="How do I set up the jail system?">
-  The quickest way is to let Wraith do the heavy lifting:
-
-  ```
-  ,jail setup
-  ```
-
-  This automatically creates a dedicated jail role and channel with the correct permissions already applied.
-
-  If you'd rather configure things manually, set the role and channel separately:
-
-  ```
-  ,jail role
-  ,jail channel
-  ```
-
-  When using the manual approach, make sure you configure the channel permissions yourself so jailed members can only see that channel.
+<Accordion title="Setup">
+  `,jail setup` (auto) — or `,jail role` \+ `,jail channel` (manual, configure overwrites yourself).
 </Accordion>
 
-<Accordion title="Jailed members aren't being re-jailed when they rejoin. What's wrong?">
-  Wraith automatically re-jails members who leave and rejoin while they're still jailed — but two things can stop this from working:
-
-  1. **The jail role was deleted.** If the role no longer exists, Wraith has nothing to assign. Recreate it and update Wraith's jail role setting.
-  2. **Wraith can't assign the role.** Wraith's own role must sit *above* the jail role in **Server Settings → Roles**. If it's below, Discord won't let Wraith assign it.
+<Accordion title="Re-jail not working on rejoin">
+  Jail role was deleted, or Wraith's role is below it.
 </Accordion>
 
-## Levels & Rewards
+## Levels
 
-<Accordion title="How do I send level-up messages to a specific channel?">
-  Use the `messagemode` option and mention your target channel:
-
-  ```
-  ,levels messagemode #channel
-  ```
-
-  Other available modes are:
-
-  | Mode | Behaviour |
-  |---|---|
-  | `context` | Posts the message in the same channel the member was active in |
-  | `pm` | Sends the member a direct message |
-  | `none` | Disables level-up messages entirely |
+<Accordion title="Send level-ups to a specific channel">
+  `,levels messagemode #channel`. Other modes: `context`, `pm`, `none`.
 </Accordion>
 
-<Accordion title="How do I give members a role when they reach a certain level?">
-  Use `addreward` with the level number and the role you want to assign:
-
-  ```
-  ,levels addreward 10 @Role
-  ```
-
-  To review all configured rewards, run `,levels rewards`. If existing members have already passed a reward threshold and didn't receive the role, run:
-
-  ```
-  ,levels sync
-  ```
-
-  This retroactively assigns every reward role to members who qualify.
+<Accordion title="Role rewards">
+  `,levels addreward 10 @Role` · `,levels sync` to retroactively assign.
 </Accordion>
 
-## Troubleshooting
+---
 
-<Accordion title="Wraith isn't responding to my commands. What should I check?">
-  Start with the two most common causes:
-
-  1. **Permissions** — Wraith needs at minimum **Read Messages** and **Send Messages** in the channel you're using. Check **Channel Settings → Permissions** and confirm Wraith's role has both.
-  2. **Prefix** — The server prefix may have been changed. Mention Wraith directly with `@Wraith prefix` to find the current one, or use `@Wraith help` which always works.
-</Accordion>
-
-## Getting More Help
-
-<Card title="Join the Wraith Support Server" icon="discord" href="https://discord.gg/wraithbot">
-  Can't find the answer here? Report a bug or ask a question in the official Wraith support server. Include the command you ran and any error message Wraith showed.
+<Card title="Support Server" icon="discord" href="https://discord.gg/wraithbot">
+  Get help from the team.
 </Card>

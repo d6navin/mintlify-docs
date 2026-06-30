@@ -4,138 +4,57 @@ sidebarTitle: "Troubleshooting"
 description: "Step-by-step fixes for the most common Wraith Bot problems — commands not responding, roles not assigning, and missing logs or messages."
 ---
 
-Most issues with Wraith come down to one of three things: a missing permission, a misconfigured setting, or a role hierarchy problem. Work through the relevant section below from top to bottom — each step rules out the most common cause before moving to the next. If you reach the end of a section and the problem persists, the support server link at the bottom of this page is the fastest way to get help.
+Most issues = missing permission, misconfigured setting, or role hierarchy.
 
-## Wraith Isn't Responding to Commands
+## No Response to Commands
 
-<Steps>
-  <Step title="Confirm Wraith is online">
-    Open your server's member list and check that Wraith shows as **online** (not idle, do not disturb, or offline). If it's offline, it may be restarting — wait a minute and try again.
-  </Step>
-  <Step title="Check channel permissions">
-    Wraith needs **Read Messages** and **Send Messages** in the channel you're using. Go to **Channel Settings → Permissions**, find Wraith's role, and confirm both permissions are allowed.
+1. Wraith online?
+2. **Read Messages** \+ **Send Messages** in the channel (channel deny overrides server allow)
+3. Correct prefix? `@Wraith prefix`
+4. Try `@Wraith help`
 
-    <Warning>
-      A channel-level permission deny always overrides a server-level allow. Even if Wraith's role has Send Messages server-wide, a channel deny will silence it in that specific channel.
-    </Warning>
-  </Step>
-  <Step title="Confirm you're using the right prefix">
-    The server prefix may have been changed from the default `,`. Run `@Wraith prefix` (mentioning Wraith directly) to see the current prefix — this always works regardless of what prefix is set.
-  </Step>
-  <Step title="Try a direct mention command">
-    Run `@Wraith help`. If Wraith responds, the bot is working fine and the issue is almost certainly the prefix. If it still doesn't respond, double-check the permissions in step 2.
-  </Step>
-</Steps>
+## Can't Assign a Role
 
-## Wraith Can't Assign a Role
-
-<Info>
-  This is almost always a role hierarchy issue, not a permissions issue. Discord prevents any bot from assigning a role that sits at or above the bot's own highest role.
-</Info>
-
-<Steps>
-  <Step title="Open your server's role list">
-    Go to **Server Settings → Roles**.
-  </Step>
-  <Step title="Find Wraith's role and the target role">
-    Locate the role Wraith is trying to assign (e.g. a level reward role, a jail role, or a reaction role).
-  </Step>
-  <Step title="Move Wraith's role above the target role">
-    Drag Wraith's role so it sits **higher** in the list than the role it needs to assign. The higher a role is in the list, the more authority it has. Save your changes.
-  </Step>
-</Steps>
+Hierarchy issue. **Server Settings → Roles** — drag Wraith above the target role.
 
 <Warning>
-  Wraith's role must be above **every** role it needs to manage — this includes jail roles, level reward roles, mute roles, and any other role Wraith assigns automatically.
+  Wraith must sit above **every** role it manages (jail, mute, level rewards, etc.).
 </Warning>
 
-## Welcome or Goodbye Messages Aren't Sending
+## Welcome / Goodbye Not Sending
 
-<Steps>
-  <Step title="Confirm a channel has been set">
-    Run `,welcome channel` to check whether a welcome channel is configured. If no channel is set, Wraith has nowhere to send the message.
-  </Step>
-  <Step title="Check channel permissions">
-    Wraith needs **Send Messages** in the configured welcome channel. Verify this under **Channel Settings → Permissions**.
-  </Step>
-  <Step title="Send a test message">
-    Run `,welcome test` to trigger a preview welcome message. If it appears, the system is working and the original issue may have been a one-time glitch. If it doesn't appear, revisit steps 1 and 2.
-  </Step>
-</Steps>
+1. `,welcome channel` to verify it's set
+2. Wraith needs **Send Messages** in that channel
+3. `,welcome test`
 
-## Antinuke Isn't Triggering
+## Antinuke Not Triggering
 
-<Steps>
-  <Step title="Confirm antinuke is enabled">
-    Run `,antinuke config` and review the output. Check that antinuke is turned on and that the actions you expect it to catch (e.g. mass bans, mass channel deletions) are enabled.
-  </Step>
-  <Step title="Check Wraith's role position">
-    For antinuke to act on users or bots breaking thresholds, Wraith needs to be able to ban or kick them. Wraith's role must be at the **very top** of the role hierarchy — above all other roles except the server owner's position.
-  </Step>
-  <Step title="Check the antinuke whitelist">
-    If a trusted admin or bot is triggering antinuke actions without a response, they may be on the whitelist. Run `,antinuke config` and review whitelisted users. Remove any entries that shouldn't be there.
-  </Step>
-</Steps>
+1. `,antinuke config` — verify it's on and the module is enabled
+2. Wraith's role at the **top** of hierarchy
+3. Check whitelist for unintended entries
 
-<Info>
-  Antinuke monitors for rapid, automated-looking actions. A single channel deletion or ban will not trigger it — it's designed to respond to bursts of destructive activity above configured thresholds.
-</Info>
+Single actions don't trigger antinuke — it's threshold-based.
 
-## Logs Aren't Showing Up
+## Logs Missing
 
-<Steps>
-  <Step title="Confirm a log channel is set">
-    Run `,logging channel` to check which channel is configured for logs. If none is set, no events will be recorded anywhere.
-  </Step>
-  <Step title="Check the required permissions">
-    Wraith needs the following permissions in the log channel:
+1. `,logs` to verify channel
+2. Needs **Send Messages**, **Embed Links**, **Manage Webhooks**
+3. Message-delete attribution needs server-level **View Audit Log**
 
-    - **Send Messages**
-    - **Embed Links**
-    - **Manage Webhooks**
-  </Step>
-  <Step title="Check View Audit Log for message deletions">
-    If message deletion events specifically aren't appearing, Wraith also needs the **View Audit Log** permission at the server level to determine who deleted a message.
-  </Step>
-</Steps>
+## VoiceMaster Not Creating
 
-## Voicemaster Channels Aren't Being Created
+1. Did you run `,voicemaster setup`?
+2. **Manage Channels** on the category
+3. Trigger must be a **voice** channel
 
-<Steps>
-  <Step title="Confirm the initial setup was completed">
-    Voicemaster requires a one-time setup command. If you haven't run it yet, do so now and follow the prompts.
-  </Step>
-  <Step title="Check category permissions">
-    Wraith needs **Manage Channels** permission in the category where Voicemaster channels are created. Check **Category Settings → Permissions** and grant it if missing.
-  </Step>
-  <Step title="Verify the join-to-create channel type">
-    The join-to-create trigger must be a **voice channel**, not a text channel. If you accidentally set a text channel as the trigger, delete it and create a voice channel in its place, then update the Voicemaster configuration.
-  </Step>
-</Steps>
+## Music Not Working
 
-## Music Commands Aren't Working
+1. Join a voice channel first
+2. Wraith needs **Connect** \+ **Speak**
+3. Channel user limit not full
 
-<Steps>
-  <Step title="Join a voice channel first">
-    You must be in a voice channel before running `,play`. Wraith joins the channel you're currently in — it can't play music if you haven't joined one yet.
-  </Step>
-  <Step title="Check voice channel permissions">
-    Wraith needs **Connect** and **Speak** permissions in your voice channel. Go to **Channel Settings → Permissions** and confirm both are allowed for Wraith's role.
-  </Step>
-</Steps>
+---
 
-<Warning>
-  If your voice channel has a user limit set and it's currently full, Wraith won't be able to join. Either raise the limit or move to a channel with space.
-</Warning>
-
-## Still Stuck?
-
-If you've worked through the relevant steps above and the problem is still happening, the support server is the best place to get a direct answer. When you join, share the following so the team can help you quickly:
-
-- The exact command you ran
-- What Wraith said (or didn't say) in response
-- The permissions Wraith's role currently has in the relevant channel
-
-<Card title="Join the Wraith Support Server" icon="discord" href="https://discord.gg/wraithbot">
-  Get help from the Wraith team and community. Bring your command, Wraith's response, and a screenshot of its permissions to get the fastest resolution.
+<Card title="Support Server" icon="discord" href="https://discord.gg/wraithbot">
+  Bring your command, Wraith's response, and a permissions screenshot.
 </Card>

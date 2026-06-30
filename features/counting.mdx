@@ -4,35 +4,19 @@ sidebarTitle: "Counting"
 description: "Configure a dedicated counting channel where members count together as a team. Wraith enforces the rules and resets the count if anyone makes a mistake."
 ---
 
-The counting feature lets your server collaborate on counting as high as possible together. Wraith monitors a designated channel, enforces the rules, removes any messages that aren't valid numbers, and announces when someone breaks the chain. It's a simple but surprisingly engaging activity that keeps members coming back to push the count higher.
+Collaborative counting channel. Wraith enforces the rules.
 
 ## Setup
 
-Setting up counting takes two commands — first point Wraith to a channel, then switch it on.
-
-<Steps>
-  <Step title="Set the counting channel">
-    Tell Wraith which channel to use for counting.
-
-    ```
-    ,counting channel #counting
-    ```
-  </Step>
-  <Step title="Enable counting">
-    Activate the feature so Wraith starts watching the channel.
-
-    ```
-    ,counting enable
-    ```
-  </Step>
-</Steps>
-
-Once enabled, members can start counting in the designated channel immediately. Only messages containing the correct next number are kept — everything else is deleted automatically.
+```text
+,counting channel #counting
+,counting enable
+```
 
 ## Commands
 
 | Command | Description |
-|---|---|
+| --- | --- |
 | `,counting channel #channel` | Set the channel Wraith monitors for counting. |
 | `,counting enable` | Enable counting in the configured channel. |
 | `,counting disable` | Pause counting without clearing the current count or settings. |
@@ -41,22 +25,10 @@ Once enabled, members can start counting in the designated channel immediately. 
 
 ## Rules
 
-Understanding the rules helps your members keep the chain alive as long as possible.
-
-<AccordionGroup>
-  <Accordion title="Members must alternate — no counting twice in a row">
-    The same person cannot send two consecutive numbers. After you contribute a number, you must wait for at least one other member to count before you can go again. This encourages participation from the whole server rather than one person counting solo.
-  </Accordion>
-
-  <Accordion title="Wrong number resets the count to 0">
-    If anyone sends the wrong number, Wraith immediately resets the count back to 0 and announces the mistake in the channel so everyone knows to start over. Double-check the current count with `,counting current` if you're unsure before you send.
-  </Accordion>
-
-  <Accordion title="Non-number messages are deleted">
-    Any message in the counting channel that isn't a valid number is automatically deleted by Wraith. Keep all regular conversation in other channels — the counting channel is strictly for counting.
-  </Accordion>
-</AccordionGroup>
+- Members must alternate — no counting twice in a row
+- Wrong number resets the count to 0
+- Non-number messages are deleted
 
 <Warning>
-  Wraith requires the **Manage Messages** permission in the counting channel to delete invalid messages. Without it, non-number messages and incorrect counts will remain in the channel, breaking the experience. Make sure Wraith's role has this permission before you enable counting.
+  Requires **Manage Messages** in the counting channel.
 </Warning>

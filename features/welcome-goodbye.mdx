@@ -4,51 +4,38 @@ sidebarTitle: "Welcome & Goodbye"
 description: "Set up automated welcome, goodbye, and boost messages in Wraith to greet new members, acknowledge departures, and celebrate server boosts."
 ---
 
-Wraith lets you automatically send custom messages when a member joins your server, leaves, or boosts — keeping your community engaged without any manual effort. You can personalise each message type with dynamic variables, preview them before they go live, and disable them at any time.
+Custom messages on join, leave, and boost.
 
-## Welcome Messages
+## Welcome
 
-Welcome messages are sent to a channel of your choice whenever a new member joins your server. Start by pointing Wraith to the right channel, then customise the message text.
-
-```
+```text
 ,welcome channel #welcome
-,welcome message Welcome to {guild.name}, {user.mention}! You're member #{user.join_position}.
+,welcome message Welcome to {guild.name}, {user.mention}!
+,welcome test
 ```
 
-Run `,welcome test` at any time to preview exactly how your message will look without waiting for a real join event.
+## Goodbye
 
-## Goodbye Messages
+Use `{user.name}` — departing members can't be pinged.
 
-Goodbye messages fire whenever a member leaves or is removed from your server. Because the member has already left, you cannot ping them — use `{user.name}` instead of `{user.mention}` so the message still makes sense.
-
-```
+```text
 ,goodbye channel #goodbye
-,goodbye message {user.name} has left {guild.name}. We now have {guild.count} members.
+,goodbye message {user.name} has left {guild.name}.
+,goodbye test
 ```
 
-Run `,goodbye test` to preview the message in your configured channel.
+## Boost
 
-<Tip>
-  Always use `{user.name}` rather than `{user.mention}` in goodbye messages. The departing member is no longer in the server, so a mention will not resolve to a clickable profile and will appear as a raw user ID instead.
-</Tip>
-
-## Boost Messages
-
-Boost messages are sent when a member boosts your server with a Nitro subscription. Use them to thank boosters and show off your current boost count.
-
-```
+```text
 ,boost channel #boosts
-,boost message Thank you for boosting {guild.name}, {user.mention}! We now have {guild.boost_count} boosts.
+,boost message Thanks for boosting, {user.mention}!
+,boost test
 ```
 
-Run `,boost test` to preview the message without requiring an actual boost.
-
-## Message Variables
-
-All three message types support the same set of dynamic variables. Drop any of these into your message text and Wraith will replace them with live values when the message is sent.
+## Variables
 
 | Variable | Description |
-|---|---|
+| --- | --- |
 | `{user.mention}` | Mentions the user with a clickable ping (`@Username`) |
 | `{user.name}` | The user's plain display name without a ping |
 | `{user.avatar}` | A URL to the user's current avatar image |
@@ -57,32 +44,24 @@ All three message types support the same set of dynamic variables. Drop any of t
 | `{guild.boost_count}` | The current number of active Nitro boosts on your server |
 | `{user.join_position}` | The position at which this user joined (e.g. `42nd member`) |
 
-<Info>
-  All three commands — `,welcome test`, `,goodbye test`, and `,boost test` — send a real preview message to the configured channel immediately. No one needs to join, leave, or boost. Use these after every change to make sure your message looks exactly right before your next member arrives.
-</Info>
-
 ### Embed Syntax
 
-All three message types support Wraith's embed syntax, so you can send a rich embed instead of plain text. Use the `{embed}` keyword followed by `$v`-separated field definitions:
-
-```
-,welcome message {embed} $v {description: Welcome to {guild.name}, {user.mention}! You are member #{user.join_position}.} $v {color: #2baade}
+```text
+,welcome message {embed}$v{description: Welcome to {guild.name}, {user.mention}!}$v{color: #2baade}
 ```
 
-The `$v` separator divides embed field definitions, and `{color: #hex}` sets the accent colour of the embed.
+`$v` separates fields. `{color: #hex}` sets the accent.
 
-## Disabling Messages
+## Disable
 
-If you no longer want a particular message type to fire, disable it with the corresponding disable command. This removes the active configuration without deleting your saved message text.
-
-```
+```text
 ,welcome disable
 ,goodbye disable
 ,boost disable
 ```
 
-You can re-enable any message type later by setting a channel again with `,welcome channel`, `,goodbye channel`, or `,boost channel`.
+Re-enable by setting a channel again.
 
-## Required Permissions
+## Permissions
 
-Wraith must have the **Send Messages** permission in whichever channel you configure for each message type. If the bot cannot send messages to the channel, the welcome, goodbye, or boost message will silently fail. Double-check your channel permission overrides if messages are not appearing.
+Wraith needs **Send Messages** in the configured channel.

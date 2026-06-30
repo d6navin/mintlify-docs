@@ -4,73 +4,31 @@ sidebarTitle: "Autoroles"
 description: "Automatically assign roles to humans and bots when they join your server using Wraith's autorole system — supports multiple roles at once."
 ---
 
-Wraith's autorole system automatically assigns one or more roles to members the moment they join your server, saving your moderators from having to hand out roles manually. You can configure separate autoroles for human members and for bots, and stack as many roles as your server needs.
+Auto-assign roles on join. Separate config for humans and bots.
 
-## Human Autoroles
+## Humans
 
-Use the `,autorole` commands to manage which roles are assigned to new human members on join.
-
-<Steps>
-  <Step title="Add an autorole">
-    Run the following command, replacing `@Role` with the role you want to assign automatically.
-
-    ```
-    ,autorole add @Role
-    ```
-  </Step>
-  <Step title="Verify your autoroles">
-    Check which roles are currently set as autoroles at any time.
-
-    ```
-    ,autorole list
-    ```
-  </Step>
-  <Step title="Remove an autorole">
-    If you no longer want a role to be assigned automatically, remove it without affecting members who already have it.
-
-    ```
-    ,autorole remove @Role
-    ```
-  </Step>
-</Steps>
-
-## Bot Autoroles
-
-When a bot joins your server, Wraith can assign it a dedicated role automatically — separate from the roles given to human members. This is useful for keeping your role list organised and for managing bot permissions in bulk.
-
+```text
+,autorole add @Role
+,autorole remove @Role
+,autorole list
 ```
+
+## Bots
+
+```text
 ,autorole bot add @BotRole
 ,autorole bot remove @BotRole
 ```
 
-<Info>
-  If a bot is invited to your server with pre-selected roles already chosen by the inviter, Wraith will still assign your configured bot autoroles **on top of** those pre-selected roles. The two systems do not conflict.
-</Info>
+Stacks on top of any pre-selected invite roles.
 
-## Role Hierarchy
+---
 
 <Warning>
-  Wraith's own role must be positioned **above every role you configure as an autorole** in your server's role hierarchy. Discord prevents bots from assigning roles that are at the same level or higher than their own highest role. If Wraith's role is too low, the autorole will silently fail and new members will not receive the role. Drag Wraith's role above all autoroles in **Server Settings → Roles**.
+  Wraith's role must sit **above** every autorole. Otherwise Discord blocks assignment.
 </Warning>
 
-## Tips and Limitations
-
-<AccordionGroup>
-  <Accordion title="Adding multiple autoroles">
-    Wraith supports as many autoroles as you need. Simply run `,autorole add` multiple times with different roles and each one will be assigned to every new member on join.
-
-    ```
-    ,autorole add @Member
-    ,autorole add @Verified
-    ,autorole add @Notifications
-    ```
-
-    Run `,autorole list` to confirm all roles are registered correctly.
-  </Accordion>
-  <Accordion title="Members who join while Wraith is offline">
-    If Wraith is offline or restarting when a member joins, that member will **not** receive their autoroles. This is a Discord limitation — bots only process join events that occur while they are connected to the gateway. There is no way for Wraith to retroactively assign roles to members who joined during downtime. If this happens, assign the missing roles manually or use `,autorole list` to remind yourself which roles to grant.
-  </Accordion>
-  <Accordion title="Bots invited with pre-selected roles">
-    Discord allows server members to pre-select roles for a bot when generating its invite link. If a bot arrives with roles already attached, Wraith still fires its bot autorole assignment independently. The new bot will end up with both its pre-selected roles and any roles you have configured via `,autorole bot add`.
-  </Accordion>
-</AccordionGroup>
+<Accordion title="Members who join while Wraith is offline">
+  Won't receive autoroles — Discord doesn't replay join events. Assign manually.
+</Accordion>

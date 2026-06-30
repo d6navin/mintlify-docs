@@ -4,31 +4,27 @@ sidebarTitle: "Add to Server"
 description: "Learn how to invite Wraith to your Discord server, grant the right permissions, and get started with your first command in minutes."
 ---
 
-Adding Wraith to your server takes less than a minute. This page walks you through the invite process step by step, explains what permissions Wraith needs to function correctly, and covers what happens automatically once the bot joins.
+Invite Wraith and it sets itself up automatically — no init commands, no config required.
 
-<Warning>
-  If Wraith does not respond to commands, its role most likely lacks permission to **Read Messages** or **Send Messages** in that channel. Open **Server Settings → Roles**, find the Wraith role, and ensure both permissions are enabled. You can also check channel-level permission overrides under **Edit Channel → Permissions**.
-</Warning>
+---
 
-## What happens after adding
+## After joining
 
-Wraith sets up automatically the moment it joins your server — no initialization command or manual configuration required. It comes pre-loaded with sensible default settings so it is ready to use straight away. You can then layer on additional configuration (welcome messages, logging channels, autoroles, and more) at your own pace using the commands covered in each feature's guide.
+Wraith joins pre-configured with sensible defaults. Layer on customisation at your own pace using each feature's page.
+
+---
 
 ## Permissions
 
-When you use the default invite link above, Wraith requests the **Administrator** permission. This is the simplest way to ensure every feature works without running into missing-permission errors as your server grows.
+The default invite requests **Administrator** — the simplest path. Prefer granular? Grant these instead:
 
-If you prefer a reduced-permission setup, you can remove Administrator and grant the following individual permissions instead. Be aware that some edge-case actions may fail if Discord introduces new permission requirements in the future.
-
-| Permission | Why Wraith needs it |
+| Permission | Used for |
 | --- | --- |
-| **Manage Roles** | Assigns and removes roles for autoroles, jail, and moderation actions |
-| **Manage Channels** | Creates and configures channels for Voicemaster and jail setups |
-| **Ban Members** | Executes ban and unban commands, including antinuke bans |
-| **Kick Members** | Executes kick commands during manual and automated moderation |
-| **Manage Messages** | Deletes messages for automod, purge commands, and message filters |
-| **View Audit Log** | Reads Discord's audit log for antinuke detection and event logging |
+| Manage Roles | Autoroles, jail, role commands |
+| Manage Channels | VoiceMaster, jail, lockdown |
+| Ban Members | Bans, antinuke |
+| Kick Members | Kicks |
+| Manage Messages | Purge, automod |
+| View Audit Log | Antinuke, logging |
 
-<Note>
-  Even with individual permissions granted, always ensure Wraith's role sits **above** any roles it needs to manage in your server's role hierarchy. Discord prevents bots from modifying roles that are higher than their own.
-</Note>
+Wraith's role must sit **above** any role it manages.

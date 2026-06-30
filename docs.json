@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "name": "Wraith",
-  "theme": "almond",
+  "theme": "maple",
   "colors": {
     "primary": "#2baade",
     "light": "#eaf5f6",
-    "dark": "#0a0b0c"
+    "dark": "#17181d"
   },
   "logo": {
     "light": "/images/wraithtransparent.png",
@@ -73,5 +73,8 @@
     "socials": {
       "discord": "https://discord.gg/wraithbot"
     }
+  },
+  "background": {
+    "decoration": "gradient"
   }
 }

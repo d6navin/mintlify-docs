@@ -8,10 +8,10 @@
     "dark": "#0a0b0c"
   },
   "logo": {
-    "light": "https://media.brand.dev/c989ad66-a410-48ca-80ce-1b57ddb062c6.jpg",
-    "dark": "https://media.brand.dev/c989ad66-a410-48ca-80ce-1b57ddb062c6.jpg"
+    "light": "/images/wraith.png",
+    "dark": "/images/wraith.png"
   },
-  "favicon": "https://media.brand.dev/e4212d88-8d21-4341-ab45-7de1f7a8d44f.jpg",
+  "favicon": "/images/wraith.png",
   "navbar": {
     "primary": {
       "type": "button",

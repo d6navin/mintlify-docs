@@ -1,0 +1,68 @@
+---
+title: "Wraith Support Tickets: Setup, Staff Commands & Limits"
+sidebarTitle: "Tickets"
+description: "Set up a fully featured support ticket system in your Discord server with panels, staff controls, transcripts, and per-member ticket limits."
+---
+
+Wraith's ticket system gives your community a structured way to reach your support team — members open private threads from a panel message, and your staff respond, claim, and close tickets using simple commands. Everything from welcome messages to HTML transcripts is configurable without leaving Discord.
+
+## Setup
+
+<Steps>
+  <Step title="Create a category in Discord">
+    In your Discord server, create a dedicated **category** to house ticket channels. All new tickets will be created inside this category, and your support role will automatically receive view access to every channel created within it.
+  </Step>
+
+  <Step title="Configure the system with ,ticket setup">
+    Run the `,ticket setup` command and Wraith will walk you through each configuration step interactively:
+
+    - **Category** — the category you created in step 1
+    - **Support role** — the role whose members can view and respond to all tickets
+    - **Log channel** — the channel where transcripts and close events are recorded
+    - **Welcome message** — the message sent to a member when they open a new ticket
+
+    Follow each prompt and confirm your choices to save the configuration.
+  </Step>
+
+  <Step title="Post the ticket panel">
+    Send the ticket panel to a channel your members can see — typically a `#support` or `#open-a-ticket` channel — with:
+
+    ```
+    ,ticket panel #support
+    ```
+
+    Wraith posts an embed with an **Open Ticket** button. Members click the button to open their own private ticket channel instantly.
+  </Step>
+</Steps>
+
+## Staff Commands
+
+Once a ticket is open, staff members with the configured support role can use the following commands inside any ticket channel:
+
+| Command | Description |
+|---|---|
+| `,ticket close` | Close the current ticket, save a transcript, and archive the channel. |
+| `,ticket claim` | Assign the ticket to yourself so the team knows who is handling it. |
+| `,ticket unclaim` | Release your claim so another staff member can take over. |
+| `,ticket add @user` | Grant an additional user access to the ticket channel. |
+| `,ticket remove @user` | Remove a user's access from the ticket channel. |
+| `,ticket rename <name>` | Rename the ticket channel to something more descriptive. |
+| `,ticket transcript` | Manually generate and send an HTML transcript without closing the ticket. |
+
+## Member Limits
+
+<Info>
+  By default, each member can only have **one open ticket at a time**. If a member tries to open a second ticket while one is already active, Wraith will notify them and direct them back to their existing channel. To raise the limit for your server, run:
+
+  ```
+  ,ticket limit <number>
+  ```
+
+  For example, `,ticket limit 3` allows each member to have up to three open tickets simultaneously.
+</Info>
+
+## Transcripts
+
+<Tip>
+  When a ticket is closed, Wraith automatically generates a full **HTML transcript** of the conversation and sends it to your configured log channel. The transcript is a self-contained HTML file you can open in any browser — it preserves message content, timestamps, usernames, and avatars for a clean, readable record. Staff can also trigger a transcript at any time with `,ticket transcript` without closing the ticket.
+</Tip>

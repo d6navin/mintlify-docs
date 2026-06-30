@@ -1,0 +1,93 @@
+{
+  "projectType": "saas",
+  "projectName": "Wraith",
+  "projectDescription": "Wraith is an all-in-one Discord bot for server moderation, music playback, leveling, logging, and community management.",
+  "theme": "almond",
+  "primaryColor": "#2baade",
+  "lightColor": "#eaf5f6",
+  "darkColor": "#0a0b0c",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "getting-started/adding-wraith",
+              "getting-started/quick-setup"
+            ]
+          },
+          {
+            "group": "Moderation",
+            "pages": [
+              "features/moderation",
+              "features/antinuke",
+              "features/logging"
+            ]
+          },
+          {
+            "group": "Community",
+            "pages": [
+              "features/welcome-goodbye",
+              "features/autoroles",
+              "features/tickets",
+              "features/levels",
+              "features/starboard",
+              "features/counting"
+            ]
+          },
+          {
+            "group": "Voice & Music",
+            "pages": [
+              "features/music",
+              "features/voicemaster"
+            ]
+          },
+          {
+            "group": "Help",
+            "pages": [
+              "faq/common",
+              "faq/troubleshooting"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Antinuke protection with configurable modules, thresholds, and punishments",
+    "Full moderation suite: bans, kicks, mutes, jail, warnings, lockdown",
+    "Music playback from YouTube, Spotify, SoundCloud, and Apple Music",
+    "Last.fm integration with crowns, scrobble tracking, and server stats",
+    "Leveling system with XP rewards, role milestones, and leaderboards",
+    "Webhook-based event logging with per-channel, per-event configuration",
+    "VoiceMaster — user-created temporary voice channels with interface panel",
+    "Welcome, goodbye, and boost messages with variable placeholders",
+    "Support ticket system with claim, transcript, and staff role controls",
+    "Autoroles for humans and bots on server join",
+    "Starboard for highlighting popular messages",
+    "Collaborative counting channel"
+  ],
+  "publicApiSurface": [
+    ",ban / ,unban / ,softban / ,hardban / ,tempban",
+    ",kick / ,mute / ,unmute / ,warn / ,warnings",
+    ",jail / ,unjail / ,jail setup",
+    ",purge / ,lock / ,unlock / ,lockdown",
+    ",antinuke enable/disable/config/whitelist/admin",
+    ",logs channel / ,log add / ,log remove / ,log color",
+    ",welcome / ,goodbye / ,boost channel/message/test",
+    ",autorole add/remove/list / ,autorole bot add/remove",
+    ",play / ,pause / ,resume / ,skip / ,queue / ,nowplaying",
+    ",lastfm set / ,np / ,whoknows / ,crown / ,crowns / ,taste",
+    ",levels enable/disable/leaderboard / ,rank",
+    ",voicemaster setup / ,vm rename / ,vm limit / ,vm permit",
+    ",ticket setup / ,ticket panel / ,ticket close / ,ticket claim",
+    ",starboard channel/threshold/emoji/reset",
+    ",counting channel/enable/disable/reset",
+    ",prefix set / ,selfprefix set",
+    ",fakeperm add/remove/list",
+    ",role add/remove/edit / ,temprole"
+  ]
+}

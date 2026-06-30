@@ -1,0 +1,142 @@
+---
+title: "Wraith Leveling System: XP, Rewards, and Leaderboards"
+sidebarTitle: "Levels"
+description: "Configure XP gain, custom level-up messages, role rewards, and leaderboards to reward your most active members with Wraith's leveling system."
+---
+
+Wraith's leveling system tracks each member's activity on a per-server basis and rewards consistent participation with XP, level-up announcements, and automatic role assignments. Members earn XP once per minute regardless of how many messages they send, which keeps the system fair and spam-resistant.
+
+## Enable and Disable
+
+Turn the leveling system on or off for your server at any time:
+
+```
+,levels enable
+,levels disable
+```
+
+Disabling levels pauses XP gain and hides rank data, but does not delete any stored XP — re-enabling the system restores everyone's progress.
+
+## Commands Reference
+
+| Command | Description |
+|---|---|
+| `,rank [@user]` | Display your rank card, or another member's if you mention them. |
+| `,levels leaderboard` | Show the top 10 members by XP in the server. |
+| `,levels enable` | Enable the leveling system. |
+| `,levels disable` | Disable the leveling system. |
+| `,levels setrate <multiplier>` | Set the XP multiplier for the server (0.1–10, default is `1.0`). |
+| `,levels message <text>` | Set a custom level-up message. |
+| `,levels messagemode <mode>` | Control where level-up messages are sent. |
+| `,levels stackroles <on/off>` | Toggle whether members keep lower reward roles when they level up. |
+| `,levels addreward <level> @role` | Assign a role as a reward when a member reaches a specific level. |
+| `,levels removereward <level>` | Remove the role reward for a specific level. |
+| `,levels rewards` | List all configured level reward roles. |
+| `,levels ignore #channel` | Stop counting XP earned in a specific channel. |
+| `,levels ignore @role` | Stop counting XP for members with a specific role. |
+| `,levels sync` | Retroactively assign level reward roles based on current levels. |
+| `,levels reset` | **Irreversibly** wipe all XP and level data for the server. Requires Administrator. |
+| `,setlevel @user <level>` | Manually set a member's level and auto-assign correct reward roles. |
+| `,setxp @user <amount>` | Manually set a member's XP total and auto-assign correct reward roles. |
+
+## Message Modes
+
+Use `,levels messagemode <mode>` to control where Wraith sends level-up notifications. There are four available modes:
+
+<Tabs>
+  <Tab title="context">
+    Wraith sends the level-up message in the **same channel** where the member sent their qualifying message. This is the default behaviour.
+
+    ```
+    ,levels messagemode context
+    ```
+  </Tab>
+  <Tab title="pm">
+    Wraith sends the level-up message as a **direct message** to the member. Useful for keeping your main channels free of notifications.
+
+    ```
+    ,levels messagemode pm
+    ```
+  </Tab>
+  <Tab title="none">
+    Level-up notifications are **disabled entirely**. Members still earn XP and level up, but no message is sent.
+
+    ```
+    ,levels messagemode none
+    ```
+  </Tab>
+  <Tab title="#channel">
+    Wraith sends all level-up messages to a **specific channel** you designate. Replace `#channel` with your target channel mention.
+
+    ```
+    ,levels messagemode #level-ups
+    ```
+  </Tab>
+</Tabs>
+
+## Level Rewards
+
+Reward active members by automatically assigning roles when they reach certain levels.
+
+**Add a reward role:**
+```
+,levels addreward 10 @Active Member
+```
+
+**Remove a reward role:**
+```
+,levels removereward 10
+```
+
+**List all reward roles:**
+```
+,levels rewards
+```
+
+By default, when a member earns a higher-level role their previous reward roles are removed. Enable role stacking to let members accumulate all reward roles they have unlocked:
+
+```
+,levels stackroles on
+```
+
+**Sync roles to current levels:**
+
+If you add reward roles after members have already been leveling, run `,levels sync` to retroactively assign the correct roles to everyone based on their current level — no manual adjustments needed.
+
+```
+,levels sync
+```
+
+## XP Rate
+
+Adjust how quickly members earn XP using a multiplier between `0.1` and `10`:
+
+```
+,levels setrate 2.0
+```
+
+A rate of `2.0` doubles the base XP gain; a rate of `0.5` halves it. XP is stored per-server and does not carry over if a member joins another server with Wraith. Use `,setlevel` or `,setxp` to manually correct a member's progress — both commands automatically assign the appropriate reward roles after the change.
+
+## Custom Level-Up Messages
+
+Replace the default level-up notification with your own text using `,levels message <text>`. You can use plain text with variables, or build a full embed using Wraith's embed syntax:
+
+**Plain text example:**
+```
+,levels message Congrats {user.mention}, you just hit level {level.current}!
+```
+
+**Embed example:**
+```
+,levels message {embed} $v {description: congrats {user.mention}, you hit level {level.current} in {guild.name}!} $v {color: #91a49f}
+```
+
+Available variables include `{user.mention}`, `{level.current}`, and `{guild.name}`. The `$v` separator divides embed fields, and `{color: #hex}` sets the embed accent colour.
+
+<Info>
+  Custom level-up messages only trigger from **level 4 onwards**. Levels 1 through 3 always use Wraith's default notification, regardless of your custom message setting. Plan your messaging and embed designs around this threshold.
+</Info>
+
+<Warning>
+  `,levels reset` **permanently deletes all XP and level data** for every member in your server. This action requires the Administrator permission and **cannot be undone** — there is no confirmation prompt or recovery option. Make sure you genuinely want to wipe all progress before running this command.
+</Warning>

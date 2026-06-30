@@ -1,0 +1,146 @@
+---
+title: "Music Streaming, Queue Controls, and Last.fm Tracking"
+sidebarTitle: "Music"
+description: "Stream music from YouTube, Spotify, SoundCloud, and more in your Discord server, with queue controls, vote-to-skip, and Last.fm integration."
+---
+
+Wraith's music system lets you play audio from multiple streaming platforms directly in any voice channel, with an interactive now-playing panel, vote-to-skip, and deep Last.fm integration so you can track scrobbles, compare tastes, and compete for artist crowns with your server.
+
+## Supported Sources
+
+Wraith can resolve and play audio from the following platforms:
+
+- **YouTube** — videos and playlists
+- **YouTube Music** — albums, tracks, and mixes
+- **Spotify** — tracks, albums, and playlists
+- **SoundCloud** — tracks and sets
+- **Apple Music** — tracks and albums
+
+<Tip>
+  Spotify and Apple Music links are resolved through a YouTube search rather than direct playback. The closest matching track is queued automatically, so results may occasionally differ from the original recording.
+</Tip>
+
+## Music Commands
+
+Use the commands below to control playback. All commands require you to be in a voice channel.
+
+| Command | Description |
+|---|---|
+| `,play <song/url>` | Search for a song by name or paste a direct URL to queue it. |
+| `,pause` | Pause the current track. |
+| `,resume` | Resume a paused track. |
+| `,skip` | Cast a vote to skip the current track (majority of listeners required). |
+| `,forceskip` | Immediately skip the current track — DJ role or admin only. |
+| `,stop` | Stop playback and clear the queue. |
+| `,queue` | Display all tracks currently in the queue. |
+| `,nowplaying` | Show the now-playing panel with interactive controls. |
+| `,volume <1-100>` | Set the playback volume to a value between 1 and 100. |
+| `,loop` | Cycle the loop mode: **track → queue → off**. |
+| `,shuffle` | Randomly shuffle the tracks remaining in the queue. |
+| `,remove <position>` | Remove the track at the specified queue position. |
+| `,seek <time>` | Jump to a specific timestamp in the current track (e.g. `1:30` or `90` for 90 seconds). |
+| `,skipto <position>` | Skip directly to a specific position in the queue. |
+| `,move <from> <to>` | Move a track from one queue position to another. |
+| `,replay` | Restart the current track from the beginning. |
+| `,disconnect` | Disconnect Wraith from the voice channel and clear the queue. |
+
+## Now Playing Controls
+
+Running `,nowplaying` posts an interactive panel with buttons you can click to control playback without typing commands.
+
+| Button | Action |
+|---|---|
+| ⏮ | Restart the current track from the beginning. |
+| ⏸ / ▶ | Toggle between pausing and resuming playback. |
+| ⏭ | Skip to the next track in the queue. |
+| 🔁 | Cycle through loop modes (track → queue → off). |
+| ⏹ | Stop playback and clear the queue. |
+
+<Info>
+  You must be in the same voice channel as Wraith to use the now-playing buttons. If you leave the channel, the buttons will not respond to your clicks.
+</Info>
+
+## Vote to Skip
+
+When you run `,skip`, Wraith opens a vote among the listeners currently in the channel. A majority of listeners must vote in favour before the track is skipped. This prevents a single person from skipping tracks everyone else is enjoying.
+
+If you hold the **DJ role** or have server **administrator** permissions, use `,forceskip` to bypass the vote and skip the track immediately.
+
+## Last.fm Setup
+
+Link your Last.fm account to unlock scrobble tracking, listening stats, and the crown competition.
+
+<Steps>
+  <Step title="Link your account">
+    Run the command below, replacing `<username>` with your Last.fm username:
+
+    ```
+    ,lastfm set <username>
+    ```
+  </Step>
+  <Step title="Index your plays">
+    After linking for the first time, run `,index` so Wraith can import your existing scrobble history for crown and stats tracking:
+
+    ```
+    ,index
+    ```
+
+    <Warning>
+      You must run `,index` after linking your Last.fm account for the first time. Without indexing, crown counts and `,whoknows` results will be incomplete until Wraith has had a chance to process your history.
+    </Warning>
+  </Step>
+  <Step title="Verify the link">
+    Use `,np` to confirm your account is linked and see what you are currently or last listened to:
+
+    ```
+    ,np
+    ```
+  </Step>
+</Steps>
+
+To unlink your account at any time, run:
+
+```
+,lastfm unset
+```
+
+## Last.fm Commands
+
+| Command | Description |
+|---|---|
+| `,np` | Show the track you are currently or most recently listening to. Requires a linked Last.fm account. |
+| `,recent` | Display your most recently scrobbled tracks. |
+| `,topartists [period]` | List your top artists for the specified time period. |
+| `,topalbums [period]` | List your top albums for the specified time period. |
+| `,toptracks [period]` | List your top tracks for the specified time period. |
+| `,whoknows <artist>` | Rank server members by their scrobble count for an artist. |
+| `,crown <artist>` | Show who currently holds the crown for an artist in this server. |
+| `,crowns [@user]` | List all crowns held by you or the mentioned user in this server. |
+| `,taste @user` | Compare your music taste with another member's. |
+| `,index` | Re-import your scrobble history to keep crown counts up to date. |
+
+## Crowns
+
+The crown system lets server members compete to be the top listener for any given artist. The member with the **most scrobbles** for an artist in the server automatically holds that artist's crown.
+
+- Crowns are **server-specific** — a crown you hold in one server does not carry over to another.
+- Crown counts update automatically whenever anyone runs `,whoknows <artist>` or `,np`.
+- Only plays that have been **indexed** (via `,index`) count toward crown totals.
+- Use `,crown <artist>` to see who currently holds the crown, and `,crowns` to browse all crowns you hold in the current server.
+
+## Period Options
+
+The `,topartists`, `,topalbums`, and `,toptracks` commands accept an optional `[period]` argument. If you omit it, Wraith defaults to your overall history.
+
+| Period | Description |
+|---|---|
+| `7day` | Last 7 days |
+| `1month` | Last 30 days |
+| `3month` | Last 3 months |
+| `6month` | Last 6 months |
+| `12month` | Last 12 months |
+| `overall` | All-time history |
+
+## Permissions
+
+Wraith requires the **Connect** and **Speak** permissions in any voice channel you want it to play music in. If Wraith cannot join or produce audio, ask a server administrator to verify these permissions are granted.

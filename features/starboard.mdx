@@ -1,0 +1,91 @@
+---
+title: "Starboard: Highlight Popular Messages Automatically"
+sidebarTitle: "Starboard"
+description: "Set up a starboard channel to showcase your server's most popular messages. Configure thresholds, emojis, and watch great content rise to the top."
+---
+
+The starboard lets your community vote messages into a dedicated highlight channel by reacting with a star emoji. Once a message collects enough reactions, Wraith reposts it in your chosen starboard channel — complete with the original content and a link back to the source. It's a great way to surface funny moments, helpful answers, or memorable quotes without any manual curation.
+
+## Setup
+
+Getting the starboard running takes three commands. Run them in any order, then verify everything looks correct with `,starboard` on its own.
+
+<Steps>
+  <Step title="Set the starboard channel">
+    Point Wraith to the channel where highlighted messages will be posted.
+
+    ```
+    ,starboard channel #starboard
+    ```
+  </Step>
+  <Step title="Set the reaction threshold">
+    Choose how many star reactions a message needs before it gets posted. The minimum is 1.
+
+    ```
+    ,starboard threshold 5
+    ```
+  </Step>
+  <Step title="Set the trigger emoji">
+    By default Wraith watches for ⭐, but you can use any emoji — including custom server emojis.
+
+    ```
+    ,starboard emoji ⭐
+    ```
+  </Step>
+</Steps>
+
+Once all three are configured, check your settings at any time by running `,starboard` with no arguments.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `,starboard` | View the current starboard configuration. |
+| `,starboard channel #channel` | Set the channel where starred messages are posted. |
+| `,starboard threshold <number>` | Set the minimum number of reactions required (minimum: 1). |
+| `,starboard emoji <emoji>` | Set the emoji Wraith watches for reactions. |
+| `,starboard reset` | Disable the starboard and clear all settings. |
+
+## Star Emoji Progression
+
+As a message racks up more stars, the embed Wraith posts in the starboard channel updates to reflect its popularity with a more impressive emoji.
+
+| Reaction Count | Display Emoji |
+|---|---|
+| 1 – 4 | ⭐ |
+| 5 – 9 | 🌟 |
+| 10 – 19 | ✨ |
+| 20+ | 💫 |
+
+## Tips
+
+<Accordion title="Reactions can't un-star a message">
+  Once a message crosses the threshold and gets posted to the starboard, removing reactions will **not** delete or retract the starboard entry. The post stays even if the reaction count drops back below the threshold.
+</Accordion>
+
+<Accordion title="Using custom server emojis">
+  You can set a custom emoji from your server as the trigger emoji. Use the emoji directly in the command just as you would in chat — for example:
+
+  ```
+  ,starboard emoji :GoldStar:
+  ```
+
+  Make sure Wraith has access to the emoji (i.e., it belongs to a server Wraith is in).
+</Accordion>
+
+<Accordion title="Self-reactions don't count">
+  A user reacting to their own message with the star emoji does **not** contribute to the reaction count. The threshold must be reached through reactions from other members.
+</Accordion>
+
+<Accordion title="Required permissions">
+  Wraith needs the following permissions in your starboard channel to function correctly:
+
+  - **Send Messages** — to post the starred message embed.
+  - **Embed Links** — to render the embed with the original message content and jump link.
+
+  If either permission is missing, Wraith will be unable to post to the channel.
+</Accordion>
+
+<Info>
+  If you run `,starboard reset`, the starboard is fully disabled and all settings are cleared. To re-enable it, simply run `,starboard channel #channel` again to set a new destination channel and reconfigure your threshold and emoji.
+</Info>

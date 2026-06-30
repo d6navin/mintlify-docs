@@ -1,0 +1,174 @@
+---
+title: "Wraith Server Event Logging: Audit Trails & Log Channels"
+sidebarTitle: "Logging"
+description: "Track server activity by routing events — message deletions, member joins, bans, and role changes — to log channels with custom colors and filters."
+---
+
+Wraith's logging system gives you a real-time audit trail of everything happening on your server. Instead of a single noisy feed, you can route each event type to its own dedicated channel, apply custom embed colors, and silence specific members or channels you don't want to track — putting you in full control of your server's activity records.
+
+## Setup
+
+Before you can log any events, you need to designate at least one log channel. Run `,logs channel` followed by the channel mention to register it, or run `,logs remove` to deregister a channel entirely. Run `,logs` on its own at any time to review your current logging configuration.
+
+<Warning>
+  Wraith uses **webhooks** to deliver log messages. This means the bot requires the **Manage Webhooks** permission in every channel you designate as a log channel, along with **Send Messages** and **Embed Links**. If you remove this permission after setup, logging will silently stop for that channel.
+</Warning>
+
+<Steps>
+  <Step title="Designate a log channel">
+    Point Wraith at the channel where you want events delivered:
+
+    ```
+    ,logs channel #mod-logs
+    ```
+  </Step>
+  <Step title="Verify your configuration">
+    Confirm the channel was registered successfully:
+
+    ```
+    ,logs
+    ```
+  </Step>
+  <Step title="Remove a log channel (optional)">
+    If you no longer want a channel to receive log events, deregister it:
+
+    ```
+    ,logs remove #mod-logs
+    ```
+  </Step>
+</Steps>
+
+<Info>
+  You are not limited to a single log channel. Each event type can be routed to a **different channel** — for example, sending `message_delete` events to `#message-logs` and `member_ban` events to `#mod-logs`. Simply run `,log add` multiple times with different channel and event combinations.
+</Info>
+
+---
+
+## Events
+
+Wraith can track 13 distinct event types across messages, members, roles, and channels. The table below lists every supported event and what triggers it.
+
+| Event | Triggers when… |
+|---|---|
+| `message_delete` | A message is deleted in any channel |
+| `message_edit` | A message is edited in any channel |
+| `member_join` | A user joins the server |
+| `member_leave` | A user leaves or is removed from the server |
+| `member_ban` | A user is banned from the server |
+| `member_unban` | A user's ban is revoked |
+| `member_kick` | A user is kicked from the server |
+| `role_create` | A new role is created |
+| `role_delete` | A role is deleted |
+| `role_update` | A role's name, color, or permissions are changed |
+| `channel_create` | A new channel or category is created |
+| `channel_delete` | A channel or category is deleted |
+| `nickname_update` | A member's server nickname is changed |
+
+<Info>
+  Only events that occur **after** Wraith joined your server are logged. There is no retroactive logging of historical activity.
+</Info>
+
+<Tip>
+  Some events — particularly `message_delete` — require Wraith to have the **View Audit Log** permission on your server to capture who performed the action. Without it, the log entry will still appear but may be missing attribution details.
+</Tip>
+
+---
+
+## Adding and Removing Events
+
+Once a log channel is registered, subscribe it to individual events with `,log add`, or unsubscribe with `,log remove`. You can run `,log add` as many times as needed to wire up multiple events to the same or different channels.
+
+<CodeGroup>
+```text Subscribe to an event
+,log add #mod-logs message_delete
+```
+
+```text Unsubscribe from an event
+,log remove #mod-logs message_delete
+```
+</CodeGroup>
+
+For example, to send member moderation events to one channel and message events to another:
+
+```
+,log add #mod-logs member_ban
+,log add #mod-logs member_kick
+,log add #mod-logs member_unban
+,log add #message-logs message_delete
+,log add #message-logs message_edit
+```
+
+---
+
+## Custom Colors
+
+You can assign a custom embed color to any event in any log channel, making it easy to visually distinguish event types at a glance. Colors are set per event per channel using a hex color code.
+
+<CodeGroup>
+```text Set a color
+,log color set #mod-logs message_delete #ff0000
+```
+
+```text Remove a color
+,log color remove #mod-logs message_delete
+```
+
+```text List all colors for a channel
+,log color list #mod-logs
+```
+</CodeGroup>
+
+<Tip>
+  Use contrasting colors to separate critical events (like `member_ban`) from routine ones (like `message_edit`). For example, assign red (`#ff0000`) to bans and yellow (`#ffcc00`) to edits so moderators can triage the log feed faster.
+</Tip>
+
+---
+
+## Ignoring Members and Channels
+
+If you want to exclude specific users or channels from triggering log events — such as bots or staff-only channels — use `,log ignore`. Run `,log ignore list` to see everything currently on the ignore list.
+
+<CodeGroup>
+```text Ignore a member
+,log ignore @user
+```
+
+```text Ignore a channel
+,log ignore #channel
+```
+
+```text View the ignore list
+,log ignore list
+```
+</CodeGroup>
+
+<Note>
+  Ignoring a channel suppresses **all** event types originating from that channel (e.g., `message_delete` and `message_edit`). Ignoring a member suppresses events where that member is the **actor** — for example, their message edits — but moderation actions taken *against* them (such as bans) may still be logged depending on how the event is attributed.
+</Note>
+
+---
+
+## Troubleshooting
+
+<Accordion title="Log messages stopped appearing after a while">
+  Wraith delivers log events via a Discord webhook it creates automatically in the log channel. If that webhook is **manually deleted** by a server administrator, logging will stop without any error message. To fix this, simply re-run the setup command for the affected channel:
+
+  ```
+  ,logs channel #mod-logs
+  ```
+
+  This tells Wraith to create a fresh webhook and resume delivery.
+</Accordion>
+
+<Accordion title="Message deletions show no 'deleted by' information">
+  To attribute who deleted a message, Wraith needs the **View Audit Log** permission at the server level. Without it, Wraith can detect that a message was deleted but cannot determine which moderator or user performed the action. Grant this permission in your server's role settings and the attribution will appear automatically on future events.
+</Accordion>
+
+<Accordion title="No logs are appearing at all">
+  Check the following in order:
+
+  1. Run `,logs` to confirm the channel is registered.
+  2. Verify Wraith has **Send Messages**, **Embed Links**, and **Manage Webhooks** in the log channel.
+  3. Confirm you have subscribed at least one event with `,log add`.
+  4. Check that the member or channel generating events is not on the ignore list (`,log ignore list`).
+</Accordion>

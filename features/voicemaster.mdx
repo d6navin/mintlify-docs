@@ -1,0 +1,95 @@
+---
+title: "VoiceMaster: Create Temporary Voice Channels on Demand"
+sidebarTitle: "VoiceMaster"
+description: "Let members create and manage their own temporary voice channels automatically, with full controls for locking, limits, activities, and more."
+---
+
+VoiceMaster gives every member the power to spin up a private, fully customisable voice channel on demand. When someone joins the designated trigger channel, Wraith instantly creates a personal voice channel for them in the configured category. The channel is automatically deleted the moment everyone leaves, keeping your server clean without any manual housekeeping.
+
+## Setup
+
+<Steps>
+  <Step title="Create a trigger voice channel in Discord">
+    In your Discord server, create a new voice channel — name it something clear like **"Join to Create"**. Place it inside the category where you want temporary channels to appear. You do not need to configure anything on the channel itself; Wraith handles the rest.
+  </Step>
+  <Step title="Run the setup command">
+    Run the command below in any text channel where Wraith can respond. Wraith will guide you through selecting the trigger channel and the category where new channels should be created:
+
+    ```
+    ,voicemaster setup
+    ```
+
+    Follow the on-screen prompts to point Wraith at the trigger channel you created and confirm the target category.
+
+    <Warning>
+      Wraith must have the **Manage Channels** permission in the category where temporary channels are created. Without it, Wraith cannot create or delete channels, and VoiceMaster will not function. Grant this permission at the category level so it applies to all channels inside it.
+    </Warning>
+  </Step>
+  <Step title="Post the control panel">
+    Send the interactive VoiceMaster interface panel to a text channel of your choice. This panel lets members control their channel with a single button click:
+
+    ```
+    ,voicemaster interface
+    ```
+
+    The panel is permanent — you can repost it at any time by running `,voicemaster interface` again. Wraith automatically deletes the old panel and posts a fresh one.
+  </Step>
+</Steps>
+
+## Interface Buttons
+
+The VoiceMaster panel contains ten buttons. Any member who owns a temporary channel can use these to manage it without typing a command.
+
+| Button | Action |
+|---|---|
+| 🔒 Lock | Prevent new members from joining your channel. |
+| 🔓 Unlock | Re-open your channel so anyone can join again. |
+| 👻 Ghost | Hide your channel from the server's channel list. |
+| 👁️ Reveal | Make your channel visible again to all members. |
+| 🎤 Claim | Claim ownership of a channel whose owner has left. |
+| 🔨 Disconnect member | Forcibly remove a specific member from your channel. |
+| 🎮 Activity | Launch a Discord Activity inside your channel. |
+| 📋 Info | Display current information about your channel (owner, limit, bitrate). |
+| ➕ Increase limit | Raise the user limit by one (up to a maximum of 99). |
+| ➖ Decrease limit | Lower the user limit by one (minimum of 0, meaning unlimited). |
+
+<Info>
+  If the owner of a temporary channel leaves, any remaining member can take ownership by pressing the **🎤 Claim** button in the interface panel or by running `,vm claim`. Ownership is required to use management controls such as renaming, setting limits, or disconnecting members.
+</Info>
+
+## Text Commands
+
+You can also manage your temporary channel with the following text commands. All commands require you to be the current owner of the channel.
+
+| Command | Description |
+|---|---|
+| `,vm rename <name>` | Rename your channel. Maximum 100 characters. Subject to a 10-second cooldown between renames. |
+| `,vm limit <0-99>` | Set a user limit for your channel. Use `0` to remove the limit entirely. |
+| `,vm permit @user` | Grant a specific member permission to join your channel even when it is locked. |
+| `,vm reject @user` | Revoke a member's permission to join and remove them from your channel if present. |
+| `,vm bitrate <kbps>` | Change the audio bitrate of your channel (subject to your server's boost tier maximum). |
+| `,vm info` | Display the current settings and owner information for your channel. |
+| `,vm claim` | Claim ownership of the channel if the previous owner has left. |
+
+## Discord Activities
+
+Press the **🎮 Activity** button in the interface panel to launch an interactive Discord Activity in your voice channel. All members currently in the channel can join.
+
+Available activities:
+
+- **Watch Together** — watch YouTube videos in sync with your channel
+- **Poker Night** — play Texas Hold'em with up to five players
+- **Chess in the Park** — one-on-one chess
+- **Checkers in the Park** — one-on-one checkers
+- **Betrayal.io** — a multiplayer social survival game
+- **Fishington.io** — a relaxed fishing game
+- **Letter League** — a word-building tile game
+- **SpellCast** — a timed word-search competition
+
+<Info>
+  Launching a Discord Activity requires Wraith to have the **Create Invite** permission in the voice channel. If the Activity button does nothing or returns an error, ask a server administrator to grant this permission within the VoiceMaster category.
+</Info>
+
+## Automatic Cleanup
+
+Wraith monitors every temporary channel it creates. As soon as the last member leaves, the channel is deleted automatically. You never need to manually remove empty channels. If a channel is locked or hidden and all members leave, it is still deleted — the settings do not keep it alive.

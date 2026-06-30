@@ -1,0 +1,229 @@
+---
+title: "Wraith Moderation Commands: Bans, Mutes, Jails & More"
+sidebarTitle: "Moderation"
+description: "A complete reference for Wraith's moderation tools — bans, mutes, jails, channel controls, role management, and custom punishment messages."
+---
+
+Wraith gives you a full suite of moderation tools to keep your server safe and well-managed. From basic bans and mutes to granular role editing, channel lockdowns, and fully customisable punishment messages, every command is designed to slot into your existing workflow without requiring extra bots or manual Discord permission juggling.
+
+## Basic Moderation Commands
+
+Use these commands for everyday member management. All actions are logged and support the [duration syntax](#duration-syntax) where applicable.
+
+| Command | Description |
+|---|---|
+| `,ban <user> [reason]` | Permanently ban a member from the server. |
+| `,unban <user>` | Revoke an existing ban. |
+| `,softban <user> [reason]` | Ban then immediately unban, deleting recent messages without keeping the ban. |
+| `,hardban <user> [reason]` | Permanently ban a user and automatically re-ban them if anyone unban them. |
+| `,tempban <user> <duration> [reason]` | Ban a member for a set duration, then automatically unban them. |
+| `,kick <user> [reason]` | Remove a member from the server (they can rejoin). |
+| `,mute <user> [duration] [reason]` | Mute a member, preventing them from sending messages. |
+| `,unmute <user>` | Remove a mute from a member. |
+| `,warn <user> <reason>` | Issue a formal warning to a member. |
+| `,warnings <user>` | View the warning history for a member. |
+| `,delwarn <warn_id>` | Delete a single warning by its ID. |
+| `,clearwarns <user>` | Remove all warnings from a member. |
+
+<Warning>
+  `,hardban` is permanent and persistent — if any moderator or administrator unbans a hardbanned user, Wraith will automatically re-ban them. Only use this command when you intend a ban to be truly irrevocable.
+</Warning>
+
+---
+
+## Jail
+
+The jail system isolates a member from the rest of your server by assigning them a restricted role and moving their view to a dedicated channel. Jailed members who leave and rejoin the server are automatically re-jailed.
+
+| Command | Description |
+|---|---|
+| `,jail <user> [reason]` | Jail a member, restricting them to the jail channel. |
+| `,unjail <user>` | Release a member from jail and restore normal access. |
+| `,jail setup` | Automatically create the jail role and channel with the correct permissions. |
+| `,jail role <role>` | Manually assign an existing role as the jail role. |
+| `,jail channel <channel>` | Manually assign an existing channel as the jail channel. |
+| `,jail reset` | Remove the current jail configuration. |
+
+### Jail Setup
+
+<Steps>
+  <Step title="Run the automatic setup">
+    Run `,jail setup` in any channel. Wraith will create a **Jailed** role and a **#jail** channel, and configure channel overwrites across your server automatically.
+  </Step>
+  <Step title="Verify permissions">
+    Check that the **Jailed** role sits below your regular member roles in the role list so it correctly overrides channel access.
+  </Step>
+  <Step title="Test the jail">
+    Run `,jail @testuser` and confirm the member can only see the jail channel. Run `,unjail @testuser` when done.
+  </Step>
+</Steps>
+
+<Warning>
+  If you configure the jail manually using `,jail role` and `,jail channel` instead of `,jail setup`, **you are responsible for setting the correct channel permission overwrites**. Wraith will not automatically update channel permissions for a manually assigned role. Ensure the jail role denies **View Channel** on every non-jail channel, and grants it on the jail channel.
+</Warning>
+
+---
+
+## Channel Tools
+
+Use these commands to control message flow and channel access in real time.
+
+| Command | Description |
+|---|---|
+| `,slowmode <seconds>` | Set a slowmode delay (in seconds) on the current channel. Use `0` to disable. |
+| `,purge <amount> [filter]` | Bulk-delete up to a specified number of messages in the current channel. |
+| `,lock [channel]` | Prevent members from sending messages in a channel. |
+| `,unlock [channel]` | Re-enable messaging in a locked channel. |
+| `,lockdown` | Lock every channel in the server simultaneously. |
+| `,lockdown end` | Unlock all channels and restore normal server access. |
+
+<Info>
+  `,lockdown` and `,lockdown end` have a **10-second cooldown** to prevent accidental rapid toggling. Wait the full 10 seconds before running the command again.
+</Info>
+
+---
+
+## Nickname Tools
+
+| Command | Description |
+|---|---|
+| `,nick <user> <nickname>` | Change a member's nickname. |
+| `,forcenick <user> <nickname>` | Lock a member's nickname so they cannot change it themselves. |
+| `,unforcenick <user>` | Release a forced nickname, allowing the member to change their own again. |
+
+---
+
+## Role Management
+
+Wraith's role commands cover everything from adding a single role to bulk-assigning roles across all humans or bots.
+
+### Add & Remove
+
+| Command | Description |
+|---|---|
+| `,role add <@role> [@user]` | Add a role to a user, or to yourself if no user is specified. |
+| `,role remove <@role> [@user]` | Remove a role from a user, or from yourself. |
+| `,role add humans <@role>` | Add a role to every non-bot member in the server. |
+| `,role remove humans <@role>` | Remove a role from every non-bot member. |
+| `,role add bots <@role>` | Add a role to every bot in the server. |
+| `,role remove bots <@role>` | Remove a role from every bot. |
+| `,temprole <user> <@role> <duration>` | Temporarily assign a role to a member; Wraith removes it automatically when the duration expires. |
+
+### Edit Role Properties
+
+| Command | Description |
+|---|---|
+| `,role edit color <@role> <hex>` | Change a role's colour using a hex code (e.g. `#ff5733`). |
+| `,role edit name <@role> <name>` | Rename a role. |
+| `,role edit hoist <@role> <true/false>` | Toggle whether the role is displayed separately in the member list. |
+| `,role edit mentionable <@role> <true/false>` | Toggle whether the role can be @mentioned by everyone. |
+| `,role edit icon <@role> <url>` | Set a role icon using an image URL. |
+| `,role edit position <@role> <position>` | Move a role to a specific position in the hierarchy. |
+
+<Info>
+  Role icons (`,role edit icon`) require your server to be at **Boost Level 2** or higher. If your server hasn't reached Level 2, Discord will reject the icon regardless of bot permissions.
+</Info>
+
+---
+
+## Image & Reaction Mutes
+
+Restrict specific types of interaction without applying a full mute.
+
+| Command | Description |
+|---|---|
+| `,imagemute <user> [duration] [reason]` | Prevent a member from posting images, videos, or embeds. |
+| `,reactionmute <user> [duration] [reason]` | Prevent a member from adding reactions to any message. |
+
+---
+
+## Fake Permissions
+
+Fake permissions let you grant the ability to run Wraith moderation commands to a role without giving that role any real Discord permissions. This is ideal for helper or trial-moderator roles.
+
+| Command | Description |
+|---|---|
+| `,fakeperm add <@role> <permission>` | Grant a role the ability to use a specific Wraith command or permission node. |
+| `,fakeperm remove <@role> <permission>` | Revoke a previously granted fake permission from a role. |
+| `,fakeperm list <@role>` | List all fake permissions currently assigned to a role. |
+
+### How Fake Permissions Work
+
+<Steps>
+  <Step title="Identify the role">
+    Decide which role you want to grant elevated Wraith access to — for example, a **Trial Mod** role that doesn't have the real **Ban Members** Discord permission.
+  </Step>
+  <Step title="Add the permission">
+    Run `,fakeperm add @Trial Mod ban` to allow members with that role to use Wraith's `,ban` command.
+  </Step>
+  <Step title="Verify the grant">
+    Run `,fakeperm list @Trial Mod` to confirm the permission appears in the list.
+  </Step>
+  <Step title="Test it">
+    Have a Trial Mod member test the command. They will be able to execute it through Wraith even though Discord itself has not granted them ban permissions.
+  </Step>
+</Steps>
+
+---
+
+## Custom Punishment Messages
+
+Wraith lets you override the default message Wraith sends when it punishes a member — both the public server message and the direct message sent to the punished user — using full embed syntax.
+
+### Available Prefixes
+
+Use the following prefixes to customise messages for each punishment type:
+
+| Prefix | Punishment |
+|---|---|
+| `pban` | Ban |
+| `pkick` | Kick |
+| `pmute` | Mute |
+| `punmute` | Unmute |
+| `pwarn` | Warn |
+| `pjail` | Jail |
+| `punjail` | Unjail |
+| `ptempban` | Temporary ban |
+| `psoftban` | Softban |
+
+### Setting a Message
+
+<CodeGroup>
+```text Public Server Message
+,pban message {embed}{title: Banned}{description: {member} was banned for {reason}}{color: #ff0000}
+```
+
+```text DM to Punished User
+,pban dm {embed}{title: You were banned}{description: You were banned from {guild} for: {reason}}{color: #ff0000}
+```
+</CodeGroup>
+
+<Info>
+  Replace `pban` with any prefix from the table above (e.g. `,pwarn message ...`) to customise that punishment type's message. Use the same embed syntax for consistent formatting across all punishment types.
+</Info>
+
+---
+
+## Duration Syntax
+
+Any command that accepts a `<duration>` argument uses the following time units. Combine them freely or use a single unit.
+
+| Suffix | Unit |
+|---|---|
+| `s` | Seconds |
+| `m` | Minutes |
+| `h` | Hours |
+| `d` | Days |
+
+**Examples:**
+
+```
+30s   → 30 seconds
+10m   → 10 minutes
+2h    → 2 hours
+7d    → 7 days
+```
+
+<Tip>
+  You can chain units for precision — for example, `,tempban @user 1d12h Repeated offences` bans the user for one day and twelve hours.
+</Tip>

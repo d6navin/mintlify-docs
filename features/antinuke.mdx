@@ -1,0 +1,131 @@
+---
+title: "Wraith Antinuke: Automatic Discord Server Protection"
+sidebarTitle: "Antinuke"
+description: "Set up Wraith's antinuke system to detect and punish mass bans, channel deletions, role deletions, and other destructive actions automatically."
+---
+
+Wraith's antinuke system monitors your server for coordinated destructive actions — such as a compromised moderator account mass-banning members or a malicious bot deleting channels — and responds automatically before serious damage can be done. Each module tracks a specific type of action, and you control the threshold that triggers a punishment and the severity of that punishment.
+
+<Warning>
+  Antinuke requires two things to function correctly. First, the user enabling and configuring it must have the **Administrator** permission. Second, the **Wraith bot role must be positioned above all other roles** in your server's role hierarchy. If Wraith's role sits below a role held by the offending user, Wraith will not be able to apply punishments. Check your role order before enabling antinuke.
+</Warning>
+
+---
+
+## Enable & Disable
+
+Turn antinuke on or off for your entire server with a single command.
+
+```text
+,antinuke enable
+,antinuke disable
+```
+
+Enabling antinuke activates all modules simultaneously using their default settings. You can then configure individual modules, thresholds, and punishments as needed.
+
+---
+
+## Modules
+
+Each module watches for a specific category of destructive action. When the number of matching actions exceeds the configured threshold within the configured time window, the module triggers and applies the punishment.
+
+| Module | What It Watches |
+|---|---|
+| `ban` | Members being banned from the server. |
+| `kick` | Members being kicked from the server. |
+| `role_delete` | Server roles being deleted. |
+| `channel_delete` | Channels being deleted. |
+| `webhook_create` | Webhooks being created in channels. |
+| `bot_add` | Bots being added (authorised) to the server. |
+
+---
+
+## Thresholds
+
+A threshold defines how many of a given action must occur within a time window (in seconds) before antinuke considers it an attack and punishes the responsible user.
+
+Configure a threshold using the `--threshold` and `--duration` flags with the relevant module:
+
+```text
+,antinuke ban on --threshold 3 --duration 10
+```
+
+This example tells Wraith: if **3 or more bans** are issued by the same user within **10 seconds**, treat it as an attack and apply the configured punishment.
+
+Apply the same pattern to any module:
+
+```text
+,antinuke channel_delete on --threshold 2 --duration 5
+,antinuke role_delete on --threshold 2 --duration 5
+,antinuke webhook_create on --threshold 5 --duration 15
+,antinuke bot_add on --threshold 1 --duration 30
+```
+
+<Tip>
+  Set tighter thresholds (lower numbers and shorter windows) for destructive actions that are rarely performed legitimately in bulk, such as `channel_delete` or `role_delete`. Looser thresholds are more appropriate for actions like `ban` where a single moderator might action several users in quick succession legitimately.
+</Tip>
+
+---
+
+## Punishments
+
+When a module threshold is exceeded, Wraith applies a punishment to the responsible user. Set the punishment per module using the `--punishment` flag:
+
+```text
+,antinuke ban on --threshold 3 --duration 10 --punishment stripstaff
+```
+
+The available punishments are:
+
+| Punishment | What It Does |
+|---|---|
+| `stripstaff` *(default)* | Removes all elevated roles from the offending user, stripping their moderation capabilities without banning them. |
+| `ban` | Permanently bans the offending user from the server. |
+| `kick` | Kicks the offending user from the server. |
+
+<Info>
+  `stripstaff` is the default punishment if you do not specify `--punishment`. It is the most conservative option — it neutralises the threat while preserving the ability to investigate and recover if the action was a false positive or an account compromise.
+</Info>
+
+---
+
+## Whitelist
+
+Whitelisted users bypass all antinuke checks entirely. Any action they take is ignored by every module regardless of thresholds.
+
+```text
+,antinuke whitelist add @user
+,antinuke whitelist remove @user
+,antinuke whitelist list
+```
+
+<Info>
+  Only whitelist users you trust completely and unconditionally. A whitelisted user can perform mass destructive actions — such as deleting every channel or banning every member — without Wraith intervening at all. Reserve the whitelist for co-owners and senior staff whose accounts are secured with strong passwords and two-factor authentication.
+</Info>
+
+---
+
+## Antinuke Admins
+
+Antinuke admins are users who can modify antinuke settings without needing to be the server owner. This is useful when you want trusted staff to manage antinuke configuration independently.
+
+```text
+,antinuke admin add @user
+,antinuke admin remove @user
+```
+
+<Warning>
+  Antinuke admins have full control over the antinuke configuration, including the ability to disable it, change punishments, and add users to the whitelist. Only grant this role to staff you trust with the security of your server.
+</Warning>
+
+---
+
+## Viewing Your Configuration
+
+Run `,antinuke config` at any time to see a full summary of your current antinuke setup — which modules are enabled, their thresholds and durations, assigned punishments, whitelisted users, and antinuke admins.
+
+```text
+,antinuke config
+```
+
+Review this regularly, especially after adding new staff or making structural changes to your server's role hierarchy, to confirm everything is configured as expected.

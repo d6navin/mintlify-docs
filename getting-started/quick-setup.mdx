@@ -1,0 +1,115 @@
+---
+title: "Wraith Bot Quick Setup Guide for Your Discord Server"
+sidebarTitle: "Quick Setup"
+description: "Configure Wraith's core features in one go — logging, welcome messages, autoroles, jail, antinuke, and Voicemaster — with copy-paste commands."
+---
+
+Once Wraith is in your server, this guide helps you get the most important features running as quickly as possible. Work through the steps in order, or skip any that do not apply to your server — every step is independent.
+
+<Info>
+  Each feature covered below has its own dedicated page in the sidebar with the full list of commands, options, and advanced configuration. The commands here are the recommended starting point, not the complete picture.
+</Info>
+
+<Steps>
+
+### Set your prefix (optional)
+
+Wraith uses `,` as its default prefix. If that conflicts with another bot on your server, swap it out before doing anything else:
+
+```
+,prefix set !
+```
+
+Replace `!` with any symbol or short string you prefer. All subsequent commands in this guide use `,` — adjust them if you change the prefix.
+
+### Set up logging
+
+Pick a private channel that only moderators can see and register it as Wraith's log channel. Wraith will post moderation events, member joins/leaves, and message edits/deletions here.
+
+```
+,logging set #mod-logs
+```
+
+<Tip>
+  Create a dedicated **#mod-logs** channel and restrict read access to staff roles only. Keeping logs private prevents members from monitoring moderator actions.
+</Tip>
+
+### Configure welcome messages
+
+Tell Wraith which channel to post welcome messages in, then set the message text. You can use the placeholders `{user}`, `{server}`, and `{count}` in your message.
+
+```
+,welcome channel #welcome
+,welcome message Welcome {user} to {server}!
+```
+
+Wraith will mention the new member and post the message in your `#welcome` channel every time someone joins.
+
+### Set up autoroles
+
+Autoroles are assigned to new members the moment they join. Add as many roles as you need by running the command once per role.
+
+```
+,autorole add @Member
+```
+
+<Note>
+  Make sure Wraith's role sits above every autorole in the server's role hierarchy, otherwise Discord will prevent Wraith from assigning those roles.
+</Note>
+
+### Set up jail
+
+The jail system lets moderators restrict a member to a single channel without banning them. First, create a `@Jailed` role and a `#jail` channel in Discord, then register both with Wraith:
+
+```
+,jail role @Jailed
+,jail channel #jail
+```
+
+Once configured, use `,jail @member [reason]` to move rule-breakers into the jail channel. Wraith will strip their other roles and assign `@Jailed` automatically.
+
+### Enable antinuke
+
+Antinuke protects your server from mass-destruction attacks. Enable it, then set the action threshold — the number of events that must occur within a short window before Wraith intervenes.
+
+```
+,antinuke enable
+,antinuke threshold ban 3
+```
+
+In the example above, if any single account performs 3 or more bans in quick succession, Wraith will automatically counter the attack. Adjust the number to suit your server's activity level.
+
+<Warning>
+  Set the ban threshold higher (5 or more) on large or active servers where moderators legitimately process multiple bans in batches. A threshold that is too low may cause Wraith to flag legitimate moderation actions.
+</Warning>
+
+### Set up Voicemaster
+
+Voicemaster lets members create and manage their own temporary voice channels on demand. Create a permanent voice channel in Discord — for example, **"➕ Join to Create"** — then point Wraith to it:
+
+```
+,voicemaster setup #join-to-create
+```
+
+When a member joins that channel, Wraith will instantly spin up a private voice channel for them. The channel is automatically deleted once everyone leaves.
+
+</Steps>
+
+## What's next
+
+You have covered the essentials. Explore Wraith's full feature set to get even more out of the bot.
+
+<CardGroup cols={2}>
+  <Card title="Moderation" icon="shield-halved" href="/features/moderation">
+    Ban, kick, mute, jail, and warn members. Explore the full moderation command suite and case management.
+  </Card>
+  <Card title="Antinuke" icon="shield-check" href="/features/antinuke">
+    Fine-tune antinuke thresholds, whitelist trusted users, and review the automatic actions Wraith can take.
+  </Card>
+  <Card title="Logging" icon="scroll" href="/features/logging">
+    Choose exactly which events Wraith logs and route different event types to separate channels.
+  </Card>
+  <Card title="Levels" icon="chart-line" href="/features/levels">
+    Reward active members with XP and role rewards. Customize the leveling curve and rank-up announcements.
+  </Card>
+</CardGroup>

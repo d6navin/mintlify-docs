@@ -1,0 +1,77 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Wraith",
+  "theme": "almond",
+  "colors": {
+    "primary": "#2baade",
+    "light": "#eaf5f6",
+    "dark": "#0a0b0c"
+  },
+  "logo": {
+    "light": "https://media.brand.dev/c989ad66-a410-48ca-80ce-1b57ddb062c6.jpg",
+    "dark": "https://media.brand.dev/c989ad66-a410-48ca-80ce-1b57ddb062c6.jpg"
+  },
+  "favicon": "https://media.brand.dev/e4212d88-8d21-4341-ab45-7de1f7a8d44f.jpg",
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Invite Wraith",
+      "href": "https://discord.com/oauth2/authorize?client_id=1511820557069586493&scope=bot+applications.commands&permissions=8"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "getting-started/adding-wraith",
+              "getting-started/quick-setup"
+            ]
+          },
+          {
+            "group": "Moderation",
+            "pages": [
+              "features/moderation",
+              "features/antinuke",
+              "features/logging"
+            ]
+          },
+          {
+            "group": "Community",
+            "pages": [
+              "features/welcome-goodbye",
+              "features/autoroles",
+              "features/tickets",
+              "features/levels",
+              "features/starboard",
+              "features/counting"
+            ]
+          },
+          {
+            "group": "Voice & Music",
+            "pages": [
+              "features/music",
+              "features/voicemaster"
+            ]
+          },
+          {
+            "group": "Help",
+            "pages": [
+              "faq/common",
+              "faq/troubleshooting"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "discord": "https://discord.gg/wraithbot"
+    }
+  }
+}

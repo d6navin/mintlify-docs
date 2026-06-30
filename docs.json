@@ -8,10 +8,10 @@
     "dark": "#0a0b0c"
   },
   "logo": {
-    "light": "/images/wraith.png",
-    "dark": "/images/wraith.png"
+    "light": "/images/wraithtransparent.png",
+    "dark": "/images/wraithtransparent.png"
   },
-  "favicon": "/images/wraith.png",
+  "favicon": "/images/wraithtransparent.png",
   "navbar": {
     "primary": {
       "type": "button",

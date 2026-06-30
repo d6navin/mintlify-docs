@@ -13,7 +13,7 @@ Detects coordinated destructive actions and punishes the offender automatically.
 
 ---
 
-## Enable & Disable
+## Enable and disable
 
 ```text
 ,antinuke enable
@@ -26,7 +26,7 @@ Enabling activates all modules with default settings.
 
 ## Modules
 
-| Module | What It Watches |
+| Module | What it watches |
 | --- | --- |
 | `ban` | Members being banned from the server. |
 | `kick` | Members being kicked from the server. |
@@ -61,7 +61,7 @@ Set per-module via `--punishment`:
 ,antinuke ban on --threshold 3 --duration 10 --punishment stripstaff
 ```
 
-| Punishment | What It Does |
+| Punishment | What it does |
 | --- | --- |
 | `stripstaff`_(default)_ | Removes all elevated roles from the offending user, stripping their moderation capabilities without banning them. |
 | `ban` | Permanently bans the offending user from the server. |
@@ -71,7 +71,7 @@ Default is `stripstaff` — conservative, preserves investigation options.
 
 ---
 
-## Command Enforcement
+## Command enforcement
 
 By default antinuke watches Discord-side actions. Add `--command` to also enforce thresholds against Wraith's own commands (`,ban`, `,channel delete`, etc.).
 
@@ -109,7 +109,7 @@ Users who can modify antinuke config without being owner.
 
 ---
 
-## View Config
+## View config
 
 ```text
 ,antinuke config

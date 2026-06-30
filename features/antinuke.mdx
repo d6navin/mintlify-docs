@@ -30,13 +30,13 @@ Enabling antinuke activates all modules simultaneously using their default setti
 Each module watches for a specific category of destructive action. When the number of matching actions exceeds the configured threshold within the configured time window, the module triggers and applies the punishment.
 
 | Module | What It Watches |
-|---|---|
+| --- | --- |
 | `ban` | Members being banned from the server. |
 | `kick` | Members being kicked from the server. |
 | `role_delete` | Server roles being deleted. |
 | `channel_delete` | Channels being deleted. |
 | `webhook_create` | Webhooks being created in channels. |
-| `bot_add` | Bots being added (authorised) to the server. |
+| `bot_add` | Bots being added (authorized) to the server. |
 
 ---
 
@@ -78,14 +78,29 @@ When a module threshold is exceeded, Wraith applies a punishment to the responsi
 The available punishments are:
 
 | Punishment | What It Does |
-|---|---|
-| `stripstaff` *(default)* | Removes all elevated roles from the offending user, stripping their moderation capabilities without banning them. |
+| --- | --- |
+| `stripstaff`_(default)_ | Removes all elevated roles from the offending user, stripping their moderation capabilities without banning them. |
 | `ban` | Permanently bans the offending user from the server. |
 | `kick` | Kicks the offending user from the server. |
 
 <Info>
   `stripstaff` is the default punishment if you do not specify `--punishment`. It is the most conservative option — it neutralises the threat while preserving the ability to investigate and recover if the action was a false positive or an account compromise.
 </Info>
+
+---
+
+## Command Enforcement
+
+By default, antinuke watches for destructive actions performed directly through Discord (such as banning a member from the user list or deleting a channel via Discord's UI). Add the `--command` flag when enabling a module to also enforce thresholds against the equivalent Wraith commands — so a user spamming `,ban` or `,channel delete` is treated the same as one acting through Discord directly.
+
+```text
+,antinuke ban on --threshold 3 --duration 10 --command
+,antinuke channel_delete on --threshold 2 --duration 5 --command
+```
+
+<Tip>
+  Combine `--command` with strict thresholds on modules like `ban` and `kick` to prevent a compromised staff account from abusing Wraith's own moderation commands to bypass antinuke.
+</Tip>
 
 ---
 

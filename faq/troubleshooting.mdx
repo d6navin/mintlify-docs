@@ -7,14 +7,14 @@ icon: "wrench"
 
 Most issues = missing permission, misconfigured setting, or role hierarchy.
 
-## No Response to Commands
+## No response to commands
 
 1. Wraith online?
 2. **Read Messages** \+ **Send Messages** in the channel (channel deny overrides server allow)
 3. Correct prefix? `@Wraith prefix`
 4. Try `@Wraith help`
 
-## Can't Assign a Role
+## Can't assign a role
 
 Hierarchy issue. **Server Settings → Roles** — drag Wraith above the target role.
 
@@ -22,13 +22,13 @@ Hierarchy issue. **Server Settings → Roles** — drag Wraith above the target 
   Wraith must sit above **every** role it manages (jail, mute, level rewards, etc.).
 </Warning>
 
-## Welcome / Goodbye Not Sending
+## Welcome / goodbye not sending
 
 1. `,welcome channel` to verify it's set
 2. Wraith needs **Send Messages** in that channel
 3. `,welcome test`
 
-## Antinuke Not Triggering
+## Antinuke not triggering
 
 1. `,antinuke config` — verify it's on and the module is enabled
 2. Wraith's role at the **top** of hierarchy
@@ -36,19 +36,19 @@ Hierarchy issue. **Server Settings → Roles** — drag Wraith above the target 
 
 Single actions don't trigger antinuke — it's threshold-based.
 
-## Logs Missing
+## Logs missing
 
 1. `,logs` to verify channel
 2. Needs **Send Messages**, **Embed Links**, **Manage Webhooks**
 3. Message-delete attribution needs server-level **View Audit Log**
 
-## VoiceMaster Not Creating
+## VoiceMaster not creating
 
 1. Did you run `,voicemaster setup`?
 2. **Manage Channels** on the category
 3. Trigger must be a **voice** channel
 
-## Music Not Working
+## Music not working
 
 1. Join a voice channel first
 2. Wraith needs **Connect** \+ **Speak**

@@ -7,7 +7,7 @@ icon: "gavel"
 
 Full moderation toolkit — bans, mutes, jails, role management, lockdowns, and custom punishment messages.
 
-## Basic Commands
+## Basic commands
 
 All actions are logged and support [duration syntax](#duration-syntax) where applicable.
 
@@ -51,7 +51,7 @@ Isolates a member with a restricted role \+ dedicated channel. Re-applies on rej
 
 ---
 
-## Channel Tools
+## Channel tools
 
 | Command | Description |
 | --- | --- |
@@ -66,7 +66,7 @@ Isolates a member with a restricted role \+ dedicated channel. Re-applies on rej
 
 ---
 
-## Nickname Tools
+## Nickname tools
 
 | Command | Description |
 | --- | --- |
@@ -76,9 +76,9 @@ Isolates a member with a restricted role \+ dedicated channel. Re-applies on rej
 
 ---
 
-## Role Management
+## Role management
 
-### Add & Remove
+### Add and remove
 
 | Command | Description |
 | --- | --- |
@@ -90,7 +90,7 @@ Isolates a member with a restricted role \+ dedicated channel. Re-applies on rej
 | `,role remove bots <@role>` | Remove a role from every bot. |
 | `,temprole <user> <@role> <duration>` | Temporarily assign a role to a member; Wraith removes it automatically when the duration expires. |
 
-### Edit Role Properties
+### Edit role properties
 
 | Command | Description |
 | --- | --- |
@@ -105,7 +105,7 @@ Role icons require server Boost Level 2\+.
 
 ---
 
-## Image & Reaction Mutes
+## Image and reaction mutes
 
 | Command | Description |
 | --- | --- |
@@ -114,7 +114,7 @@ Role icons require server Boost Level 2\+.
 
 ---
 
-## Fake Permissions
+## Fake permissions
 
 Grant a role access to Wraith commands without granting real Discord permissions — ideal for trial mods.
 
@@ -128,7 +128,7 @@ Example: `,fakeperm add @Trial Mod ban`
 
 ---
 
-## Custom Punishment Messages
+## Custom punishment messages
 
 Override the public server message and DM sent to punished users via embed syntax.
 
@@ -146,15 +146,15 @@ Override the public server message and DM sent to punished users via embed synta
 | `ptempban` | Temporary ban |
 | `psoftban` | Softban |
 
-### Setting a Message
+### Setting a message
 
 <CodeGroup>
 
-```text Public Server Message
+```text Public server message
 ,pban message {embed}$v{title: Banned}$v{description: {member} was banned for {reason}}$v{color: #ff0000}
 ```
 
-```text DM to Punished User
+```text DM to punished user
 ,pban dm {embed}{title: You were banned}{description: You were banned from {guild} for: {reason}}{color: #ff0000}
 ```
 
@@ -164,7 +164,7 @@ Replace `pban` with any prefix above to customise other punishment types.
 
 ---
 
-## Duration Syntax
+## Duration syntax
 
 | Suffix | Unit |
 | --- | --- |

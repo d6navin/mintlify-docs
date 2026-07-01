@@ -30,7 +30,8 @@
               "introduction",
               "getting-started/adding-wraith",
               "getting-started/quick-setup"
-            ]
+            ],
+            "icon": "play"
           },
           {
             "group": "Moderation",
@@ -38,7 +39,8 @@
               "features/moderation",
               "features/antinuke",
               "features/logging"
-            ]
+            ],
+            "icon": "shield-check"
           },
           {
             "group": "Community",
@@ -49,21 +51,24 @@
               "features/levels",
               "features/starboard",
               "features/counting"
-            ]
+            ],
+            "icon": "users"
           },
           {
             "group": "Voice & Music",
             "pages": [
               "features/music",
               "features/voicemaster"
-            ]
+            ],
+            "icon": "headphones"
           },
           {
             "group": "Help",
             "pages": [
               "faq/common",
               "faq/troubleshooting"
-            ]
+            ],
+            "icon": "life-buoy"
           }
         ]
       }

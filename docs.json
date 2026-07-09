@@ -17,7 +17,13 @@
       "type": "button",
       "label": "Invite Wraith",
       "href": "https://discord.com/oauth2/authorize?client_id=1511820557069586493&scope=bot+applications.commands&permissions=8"
-    }
+    },
+    "links": [
+      {
+        "href": "https://wraith.rest/commands",
+        "label": "Commands"
+      }
+    ]
   },
   "navigation": {
     "tabs": [
@@ -81,5 +87,8 @@
   },
   "background": {
     "decoration": "gradient"
+  },
+  "fonts": {
+    "family": "Inter"
   }
 }

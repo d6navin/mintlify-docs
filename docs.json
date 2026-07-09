@@ -88,7 +88,9 @@
   "background": {
     "decoration": "gradient"
   },
-  "fonts": {
-    "family": "Inter"
+  "banner": {
+    "content": "You can also add wraith as an app into your account!",
+    "dismissible": true,
+    "type": "info"
   }
 }
